@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>رحلتي ٢١٤ — Rihlaty 214</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#071813">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="app-header">
+    <div>
+      <div class="brand-title">رحلتي ٢١٤</div>
+      <div class="brand-sub" id="headerDate">جاري الحساب...</div>
+    </div>
+    <div class="header-badge" id="ruleBadge">قاعدة ٨٠٪</div>
+  </header>
+
+  <main class="container">
+
+    <!-- 1. DASHBOARD SECTION -->
+    <section id="sec-dashboard" class="section active">
+      
+      <!-- Binge Emergency Fast Action -->
+      <div class="emergency-banner">
+        <div>
+          <h3 style="color:#fca5a5; font-size:1rem;">هل تشعر برغبة أكل مفاجئة؟</h3>
+          <p style="font-size:0.75rem; color:#cbd5e1;">اكسر اندفاع الدوبامين قبل أن تبدأ الوجبة.</p>
+        </div>
+        <button class="emergency-btn" onclick="openEmergencyModal()">زر الطوارئ 🛡️</button>
+      </div>
+
+      <!-- Hero Progress -->
+      <div class="card">
+        <div class="card-title">🎯 تقدم الرحلة (٢١٤ يوم)</div>
+        <div class="hero-stats">
+          <div class="stat-box">
+            <div class="stat-value" id="currentDayNumber">١</div>
+            <div class="stat-label">اليوم الحالي</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="daysRemaining">٢١٣</div>
+            <div class="stat-label">يوماً متبقياً</div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-muted);">
+          <span>نسبة إنجاز الأيام</span>
+          <span id="journeyPercent">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="journeyProgressFill"></div>
+        </div>
+      </div>
+
+      <!-- Today's Focus Card -->
+      <div class="card">
+        <div class="card-title">⚡ مبدأ اليوم</div>
+        <p style="font-size:0.9rem; color:#e2e8f0; margin-bottom:10px;" id="dailyQuote">
+          "الكمال غير مطلوب؛ الالتزام بنسبة ٨٠٪ يكفي تماماً للوصول إلى هدفك بسلامة واستدامة."
+        </p>
+        <div style="font-size:0.8rem; color:var(--accent-gold);">
+          • التزامك بالأسبوع الحالي: <strong id="weeklyScore">٠٪</strong>
+        </div>
+      </div>
+
+      <!-- Quick Habits Checklist -->
+      <div class="card">
+        <div class="card-title">📋 مهام اليوم الأساسية</div>
+        <div id="habitsListContainer">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Water Tracker -->
+      <div class="card">
+        <div class="card-title">💧 شرب الماء والسوائل</div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <span style="font-size:1.8rem; font-weight:800; color:var(--accent-gold);" id="waterCount">0</span>
+            <span style="color:var(--text-muted); font-size:0.9rem;"> / 10 أكواب (2.5 لتر)</span>
+          </div>
+          <div class="water-controls">
+            <button class="btn-secondary" onclick="updateWater(-1)">-١</button>
+            <button class="btn-primary" onclick="updateWater(1)">+ قدح ماء</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 2. WORKOUT SECTION -->
+    <section id="sec-workout" class="section">
+      <div class="card">
+        <div class="card-title">🏋️ رفيق تمارين الدمبلص</div>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">
+          البروتوكول: ٣ جولات (١٢ - ١٠ - ٨ تكرارات). اترك تكرارين في الاحتياط ولا تصل للفشل الكامل لحماية المفاصل.
+        </p>
+        
+        <div class="habit-item" style="cursor:default;">
+          <div class="habit-info">
+            <h4>١. تمرين الصدر بالدمبلص (Floor Press)</h4>
+            <p>٣ جولات × ١٢-١٠-٨</p>
+          </div>
+        </div>
+        <div class="habit-item" style="cursor:default;">
+          <div class="habit-info">
+            <h4>٢. تجديف الظهر بالدمبلص (Dumbbell Row)</h4>
+            <p>٣ جولات × ١٢-١٠-٨</p>
+          </div>
+        </div>
+        <div class="habit-item" style="cursor:default;">
+          <div class="habit-info">
+            <h4>٣. سكوات خفيف بوزن الجسم أو دمبلص (Goblet Squat)</h4>
+            <p>٣ جولات × ١٠-١٢</p>
+          </div>
+        </div>
+        <div class="habit-item" style="cursor:default;">
+          <div class="habit-info">
+            <h4>٤. أكتاف / بايسبس مدمج</h4>
+            <p>٣ جولات × ١٠-١٢</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rest Timer -->
+      <div class="card" style="text-align:center;">
+        <div class="card-title" style="justify-content:center;">⏱️ مؤقت الراحة بين الجولات</div>
+        <div class="timer-display" id="workoutTimer">01:15</div>
+        <div style="display:flex; justify-content:center; gap:10px;">
+          <button class="btn-primary" onclick="startWorkoutTimer(75)">ابدأ الراحة (75 ث)</button>
+          <button class="btn-secondary" onclick="startWorkoutTimer(90)">90 ثانية</button>
+          <button class="btn-secondary" onclick="resetWorkoutTimer()">إلغاء</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PROGRESS & WEIGHT SECTION -->
+    <section id="sec-progress" class="section">
+      <div class="card">
+        <div class="card-title">⚖️ قياس الوزن الأسبوعي</div>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">
+          الوزن الأولي: ١١٠ كغم | الهدف النهائي: ٨٥ كغم. تذكر: القياس مرة واحدة أسبوعياً صباحاً على الريق.
+        </p>
+        
+        <div style="display:flex; gap:10px; margin-bottom:16px;">
+          <input type="number" id="inputWeight" placeholder="مثال: 108.5" step="0.1" style="flex:1; padding:12px; border-radius:10px; background:var(--bg-surface); border:1px solid var(--border-color); color:#fff; text-align:center; font-size:1.1rem;">
+          <button class="btn-primary" onclick="recordWeight()">حفظ الوزن</button>
+        </div>
+
+        <div class="card-title" style="font-size:0.95rem;">سجل الأوزان المسجلة:</div>
+        <div id="weightLogContainer" style="max-height: 200px; overflow-y: auto;">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Backup and Settings -->
+      <div class="card">
+        <div class="card-title">⚙️ إدارة البيانات والنسخ الاحتياطي</div>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">
+          بياناتك محفوظة محلياً على هاتفك. يمكنك تصدير نسخة احتياطية واسترجاعها بأي وقت.
+        </p>
+        <div style="display:flex; gap:10px;">
+          <button class="btn-secondary" style="flex:1;" onclick="exportAppData()">تصدير نسخة (Backup)</button>
+          <label class="btn-secondary" style="flex:1; text-align:center; cursor:pointer;">
+            استيراد
+            <input type="file" id="importFileInput" onchange="importAppData(event)" style="display:none;" accept=".json">
+          </label>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Emergency Modal (Binge Rescue Protocol) -->
+  <div class="modal-overlay" id="emergencyModal">
+    <div class="modal-content">
+      <h2 style="color:var(--danger); margin-bottom:8px;">بروتوكول تهدئة الشراهة 🛡️</h2>
+      <p style="font-size:0.85rem; color:#e2e8f0;">
+        الرغبة الشديدة هي موجة عصبية تستمر عادةً من ٥ إلى ١٠ دقائق فقط ثم تنخفض. لا تقاوم بالقوة؛ اتبع الخطوات الثلاث:
+      </p>
+
+      <div style="margin:16px 0; text-align:right; font-size:0.85rem; background:var(--bg-surface); padding:12px; border-radius:10px;">
+        <p>١. 🥤 اشرب قدح ماء كبير أو رشفة من منقوع الشيا الآن فوراً.</p>
+        <p>٢. 🚶 غادر المطبخ أو المكان الذي تتواجد فيه الطعام لمدة ٥ دقائق.</p>
+        <p>٣. ⏳ انتظر انتهاء العداد أدناه قبل اتخاذ أي قرار بالأكل.</p>
+      </div>
+
+      <div class="timer-display" id="emergencyTimer">05:00</div>
+
+      <div style="display:flex; gap:10px; justify-content:center;">
+        <button class="btn-primary" onclick="startEmergencyTimer()">بدء مهلة الـ 5 دقائق</button>
+        <button class="btn-secondary" onclick="closeEmergencyModal()">إغلاق</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="switchTab('dashboard')">
+      <span style="font-size:1.2rem;">🏠</span>
+      <span>الرئيسية</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('workout')">
+      <span style="font-size:1.2rem;">🏋️</span>
+      <span>التمارين</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('progress')">
+      <span style="font-size:1.2rem;">📊</span>
+      <span>التقدم والوزن</span>
+    </button>
+  </nav>
+
+  <script src="./js/app.js"></script>
+</body>
+</html>
