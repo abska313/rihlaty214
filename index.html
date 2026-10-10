@@ -4,10 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>رحلتي ٢١٤ — Rihlaty 214</title>
+  
+  <!-- PWA & Mobile Meta Tags -->
   <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#071813">
+  <meta name="theme-color" content="#030d0a">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
@@ -64,7 +70,7 @@
         <p style="font-size:0.9rem; color:#e2e8f0; margin-bottom:10px;" id="dailyQuote">
           "الكمال غير مطلوب؛ الالتزام بنسبة ٨٠٪ يكفي تماماً للوصول إلى هدفك بسلامة واستدامة."
         </p>
-        <div style="font-size:0.8rem; color:var(--accent-gold);">
+        <div style="font-size:0.8rem; color:var(--gold-light);">
           • التزامك بالأسبوع الحالي: <strong id="weeklyScore">٠٪</strong>
         </div>
       </div>
@@ -82,7 +88,7 @@
         <div class="card-title">💧 شرب الماء والسوائل</div>
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <div>
-            <span style="font-size:1.8rem; font-weight:800; color:var(--accent-gold);" id="waterCount">0</span>
+            <span style="font-size:1.8rem; font-weight:800; color:var(--gold-light);" id="waterCount">0</span>
             <span style="color:var(--text-muted); font-size:0.9rem;"> / 10 أكواب (2.5 لتر)</span>
           </div>
           <div class="water-controls">
@@ -149,7 +155,7 @@
         </p>
         
         <div style="display:flex; gap:10px; margin-bottom:16px;">
-          <input type="number" id="inputWeight" placeholder="مثال: 108.5" step="0.1" style="flex:1; padding:12px; border-radius:10px; background:var(--bg-surface); border:1px solid var(--border-color); color:#fff; text-align:center; font-size:1.1rem;">
+          <input type="number" id="inputWeight" placeholder="مثال: 108.5" step="0.1" style="flex:1; padding:12px; border-radius:12px; background:var(--bg-surface); border:1px solid var(--border-glass); color:#fff; text-align:center; font-size:1.1rem;">
           <button class="btn-primary" onclick="recordWeight()">حفظ الوزن</button>
         </div>
 
@@ -180,14 +186,14 @@
   <!-- Emergency Modal (Binge Rescue Protocol) -->
   <div class="modal-overlay" id="emergencyModal">
     <div class="modal-content">
-      <h2 style="color:var(--danger); margin-bottom:8px;">بروتوكول تهدئة الشراهة 🛡️</h2>
+      <h2 style="color:var(--danger-accent); margin-bottom:8px;">بروتوكول تهدئة الشراهة 🛡️</h2>
       <p style="font-size:0.85rem; color:#e2e8f0;">
         الرغبة الشديدة هي موجة عصبية تستمر عادةً من ٥ إلى ١٠ دقائق فقط ثم تنخفض. لا تقاوم بالقوة؛ اتبع الخطوات الثلاث:
       </p>
 
-      <div style="margin:16px 0; text-align:right; font-size:0.85rem; background:var(--bg-surface); padding:12px; border-radius:10px;">
-        <p>١. 🥤 اشرب قدح ماء كبير أو رشفة من منقوع الشيا الآن فوراً.</p>
-        <p>٢. 🚶 غادر المطبخ أو المكان الذي تتواجد فيه الطعام لمدة ٥ دقائق.</p>
+      <div style="margin:16px 0; text-align:right; font-size:0.85rem; background:var(--bg-surface); padding:14px; border-radius:12px; border:1px solid var(--border-glass);">
+        <p style="margin-bottom:6px;">١. 🥤 اشرب قدح ماء كبير أو رشفة من منقوع الشيا الآن فوراً.</p>
+        <p style="margin-bottom:6px;">٢. 🚶 غادر المطبخ أو مكان تواجد الطعام لمدة ٥ دقائق كاملة.</p>
         <p>٣. ⏳ انتظر انتهاء العداد أدناه قبل اتخاذ أي قرار بالأكل.</p>
       </div>
 
@@ -202,16 +208,16 @@
 
   <!-- Bottom Navigation Bar -->
   <nav class="bottom-nav">
-    <button class="nav-item active" onclick="switchTab('dashboard')">
-      <span style="font-size:1.2rem;">🏠</span>
+    <button class="nav-item active" onclick="switchTab('dashboard', this)">
+      <span>🏠</span>
       <span>الرئيسية</span>
     </button>
-    <button class="nav-item" onclick="switchTab('workout')">
-      <span style="font-size:1.2rem;">🏋️</span>
+    <button class="nav-item" onclick="switchTab('workout', this)">
+      <span>🏋️</span>
       <span>التمارين</span>
     </button>
-    <button class="nav-item" onclick="switchTab('progress')">
-      <span style="font-size:1.2rem;">📊</span>
+    <button class="nav-item" onclick="switchTab('progress', this)">
+      <span>📊</span>
       <span>التقدم والوزن</span>
     </button>
   </nav>
