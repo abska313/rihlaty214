@@ -129,6 +129,7 @@ function toggleHabit(habitId) {
     todayLog.habits.splice(idx, 1);
   } else {
     todayLog.habits.push(habitId);
+    if ('vibrate' in navigator) navigator.vibrate(40);
   }
 
   saveState();
@@ -141,6 +142,7 @@ function updateWater(delta) {
   todayLog.water = Math.max(0, (todayLog.water || 0) + delta);
   saveState();
   document.getElementById('waterCount').textContent = todayLog.water;
+  if ('vibrate' in navigator) navigator.vibrate(25);
 }
 
 // --- WEIGHT TRACKING ---
@@ -175,10 +177,10 @@ function renderWeights() {
 
   state.weights.forEach(item => {
     const row = document.createElement('div');
-    row.style.cssText = 'display:flex; justify-content:space-between; padding:8px 12px; background:var(--bg-surface); margin-bottom:6px; border-radius:8px; font-size:0.85rem;';
+    row.style.cssText = 'display:flex; justify-content:space-between; padding:10px 14px; background:var(--bg-surface); margin-bottom:8px; border-radius:10px; font-size:0.85rem; border:1px solid var(--border-glass);';
     row.innerHTML = `
       <span>📅 ${item.date}</span>
-      <strong style="color:var(--accent-gold);">${item.weight} كغم</strong>
+      <strong style="color:var(--gold-light);">${item.weight} كغم</strong>
     `;
     container.appendChild(row);
   });
@@ -250,15 +252,28 @@ function startEmergencyTimer() {
 }
 
 // --- NAVIGATION TABS ---
-function switchTab(tabId) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+function switchTab(tabId, el) {
+  // Hide all sections
+  document.querySelectorAll('.section').forEach(s => {
+    s.classList.remove('active');
+  });
 
-  const activeSec = document.getElementById(`sec-${tabId}`);
-  if (activeSec) activeSec.classList.add('active');
+  // Deactivate all nav buttons
+  document.querySelectorAll('.nav-item').forEach(b => {
+    b.classList.remove('active');
+  });
 
-  const clickedBtn = event.currentTarget;
-  if (clickedBtn) clickedBtn.classList.add('active');
+  // Activate chosen section
+  const targetSec = document.getElementById(`sec-${tabId}`);
+  if (targetSec) {
+    targetSec.classList.add('active');
+  }
+
+  // Activate clicked button
+  const currentBtn = el || (window.event ? window.event.currentTarget : null);
+  if (currentBtn) {
+    currentBtn.classList.add('active');
+  }
 }
 
 // --- BACKUP & EXPORT/IMPORT ---
